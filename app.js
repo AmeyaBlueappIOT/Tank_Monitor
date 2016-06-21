@@ -144,6 +144,7 @@ app.directive('liquidTank', function ($parse, $http) {
         window.api.updateUI();
         console.log(scope.filledSteps);
         var fillPct = scope.filledSteps/scope.totalSteps;
+        $('#myPerc').val(fillPct);
 		console.log(fillPct);
         var fillHeight = c.height*fillPct;
         var lineY = c.height/scope.totalSteps;   // different steps 
