@@ -6,7 +6,7 @@ app.controller('MainCtrl', function($scope) {
 	
 	 $scope.api = api;
 	
-	 /*   $scope.api.onSuccess = function(message){
+	    $scope.api.onSuccess = function(message){
 
     };
      
@@ -18,7 +18,7 @@ app.controller('MainCtrl', function($scope) {
 
     $scope.toggleRelay = function() {
         $scope.api.toggleRelay($scope.api.isOn);
-    };*/
+    };
 
     $scope.api.updateUI = function(){
         $scope.$apply();
@@ -48,7 +48,7 @@ app.controller('MainCtrl', function($scope) {
             xAxis: {
                 axisLabel:'Time',
                 tickFormat: function(d){
-					console.log("Hiiii");
+				
 					var d = new Date();
 					var currDate = d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
                     			return currDate;
@@ -64,42 +64,18 @@ app.controller('MainCtrl', function($scope) {
         
     $scope.run = true;
     
-     $scope.x = 10;
-    var d = new Date();
-	 
-	var currDate = d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+    var x = 20;
+   
     setInterval(function(){
 	    if (!$scope.run) return;
-	    $scope.data[0].values.push({ x: $scope.x,	y: setValues(),label: 'Hello'});
+	    $scope.data[0].values.push({ x: x,	y: $scope.api.currentValue});
 		
       if ($scope.data[0].values.length > 20) 
 		  $scope.data[0].values.shift();
 	    $scope.x++;
-		// $scope.$draw();
-	  currDate = d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
-//	  x = d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
-	  //  console.log("changed");
-	//	callNewValues($scope);
-		
+
       $scope.$apply(); // update both chart
-    }, 1000);  
-
-	
-	function setValues()
-{
-	      var i = 0;
-		var Max = 16;
-		var Min = 2;
-		 	
-		$scope.i = Math.random() * ( Max - Min );
-		console.log($scope.i);
-	return $scope.i;
-}
-
-	
-});
-
-
+    }, 3000);  
 
 
 app.directive('liquidTank', function ($parse, $http) {
@@ -110,7 +86,7 @@ app.directive('liquidTank', function ($parse, $http) {
     transclude: false,
     template: '<div/>',
     link: function (scope, element, attrs) {
-	//	alert("--");
+
       scope.draw = function() {
 		  
         if(attrs.hasOwnProperty('canvasId')) {
@@ -164,7 +140,8 @@ app.directive('liquidTank', function ($parse, $http) {
         scope.totalSteps = scope.steps[_.random(scope.steps.length-1)];
 		console.log(scope.totalSteps);
 		
-        scope.filledSteps = (8/16)*10;//_.random(1,scope.totalSteps-1);
+        scope.filledSteps = window.api.currentValue;//(8/16)*10;//_.random(1,scope.totalSteps-1);
+        window.api.updateUI();
         console.log(scope.filledSteps);
         var fillPct = scope.filledSteps/scope.totalSteps;
 		console.log(fillPct);
