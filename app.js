@@ -4,9 +4,9 @@ var app = angular.module('plunker', ['nvd3']);
 app.controller('MainCtrl', function($scope) {
 	
 	
-	/* $scope.api = api;
+	 $scope.api = api;
 	
-	    $scope.api.onSuccess = function(message){
+	 /*   $scope.api.onSuccess = function(message){
 
     };
      
@@ -47,15 +47,13 @@ app.controller('MainCtrl', function($scope) {
             },
             xAxis: {
                 axisLabel:'Time',
-              /*  tickFormat: function(d){
+                tickFormat: function(d){
 					console.log("Hiiii");
 					var d = new Date();
 					var currDate = d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
-                    //return currDate;
-					console.log("Hiiii--"+currDate);
-					var label = currDate;
-					return label;
-                }*/
+                    			return currDate;
+				
+                }
 }
         }
     };
